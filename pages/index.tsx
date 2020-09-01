@@ -5,7 +5,7 @@ import { useEffect, useContext } from 'react';
 import styles from '../styles/Home.module.css';
 import { Flex, Text, Box, Heading, Stack, Button } from '@chakra-ui/core';
 
-import { BookContext } from './context/BookContext';
+import { BookContext, useBook } from './context/BookContext';
 import { Types } from './reducers/bookReducer';
 
 type HomeProps = {
@@ -25,7 +25,7 @@ export default function Home({ bookList = [] }: HomeProps) {
   const {
     dispatch,
     state: { books },
-  } = useContext(BookContext);
+  } = useBook();
 
   useEffect(() => {
   }, []);

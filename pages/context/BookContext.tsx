@@ -1,5 +1,6 @@
-import React, { createContext, Dispatch, useReducer } from 'react';
-import { bookReducer, BookActions } from '../reducers/bookReducer';
+import React, { createContext, Dispatch, useReducer, useContext } from 'react';
+
+import { bookReducer, BookActions } from '../reducers';
 
 export type BookType = {
   title: string;
@@ -49,4 +50,5 @@ const BookContextProvider = ({ children }) => {
   return <BookContext.Provider value={{ state, dispatch }}>{children}</BookContext.Provider>;
 };
 
-export { BookContextProvider, BookContext };
+const useBook = () => useContext(BookContext);
+export { BookContextProvider, BookContext, useBook };

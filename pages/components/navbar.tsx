@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { Box, Heading, Flex, Text, Button, Link as StyledLink } from '@chakra-ui/core';
-import { BookContext } from '../context/BookContext';
 import Link from 'next/link';
+
+import { useBook } from '../context';
 
 const MenuItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display='block'>
@@ -12,7 +13,7 @@ const MenuItems = ({ children }) => (
 const Header = (props) => {
   const {
     state: { books },
-  } = useContext(BookContext);
+  } = useBook();
   const [show, setShow] = React.useState(false);
   const handleToggle = () => setShow(!show);
 
