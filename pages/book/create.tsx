@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form';
 import React, { useContext } from 'react';
+import { useRouter } from 'next/router'
+
 import {
   FormErrorMessage,
   FormLabel,
@@ -10,12 +12,12 @@ import {
   Flex,
 } from '@chakra-ui/core';
 
-import { BookContext, BookType } from '../context/BookContext';
-import { Types } from '../reducers/bookReducer';
-import Link from 'next/link';
+import { useBook, BookType } from '../context';
+import { Types } from '../reducers';
 
 export default function Create() {
-  const { dispatch } = useContext(BookContext);
+  const { dispatch } = useBook();
+  const router = useRouter();
 
   const { handleSubmit, errors, register, formState } = useForm();
 
@@ -37,6 +39,8 @@ export default function Create() {
 
   function onSubmit({ title, author }: BookType) {
     dispatch({ type: Types.Create, payload: { title, author } });
+
+    router.push('/');
   }
 
   return (
@@ -69,7 +73,7 @@ export default function Create() {
           <Button mt={4} variantColor='purple' isLoading={formState.isSubmitting} type='submit'>
             Submit
           </Button>
-         
+
         </form>
       </Box>
     </Flex>
