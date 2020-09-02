@@ -1,5 +1,5 @@
-import { useForm } from 'react-hook-form';
 import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router'
 
 import {
@@ -12,8 +12,8 @@ import {
   Flex,
 } from '@chakra-ui/core';
 
-import { useBook, BookType } from '../context';
-import { Types } from '../reducers';
+import { useBook, BookType } from 'context';
+import { Types } from 'reducers';
 
 export default function Create() {
   const { dispatch } = useBook();

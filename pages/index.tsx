@@ -1,18 +1,17 @@
+import { useEffect } from 'react';
+import { Flex, Text, Box, Heading, Stack, Button } from '@chakra-ui/core';
 import Head from 'next/head';
 import Link from 'next/link';
 
-import { useEffect, useContext } from 'react';
-import styles from '../styles/Home.module.css';
-import { Flex, Text, Box, Heading, Stack, Button } from '@chakra-ui/core';
+import { useBook } from 'context';
 
-import { BookContext, useBook } from './context/BookContext';
-import { Types } from './reducers/bookReducer';
+import styles from '../styles/Home.module.css';
 
 type HomeProps = {
   bookList: BookProps[] | undefined;
 };
 
-function Feature({ title, desc, ...rest }) {
+const Feature = ({ title, desc, ...rest }) => {
   return (
     <Box p={5} shadow='md' borderWidth='1px' {...rest}>
       <Heading fontSize='xl'>{title}</Heading>
@@ -23,8 +22,8 @@ function Feature({ title, desc, ...rest }) {
 
 export default function Home({ bookList = [] }: HomeProps) {
   const {
-    dispatch,
-    state: { books },
+    dispatch = () => { },
+    state: { books = [] } = {},
   } = useBook();
 
   useEffect(() => {
@@ -51,15 +50,13 @@ export default function Home({ bookList = [] }: HomeProps) {
               Famous Books
             </Heading>
             <Button variantColor='purple' variant='outline' ml={20}>
-              <Link href='/book/create'>
-                NEW
-              </Link>
+              <Link href='/book/create'><a title="NEW">NEW</a></Link>
             </Button>
           </Box>
           <Box rounded='md' bg='purple.500' color='white' px={15} py={15}>
             <Stack spacing={8}>
-              {books.map((item) => (
-                <Feature title={item.title} desc={item.author} />
+              {books.map((item, index) => (
+                <Feature key={index} title={item.title} desc={item.author} />
               ))}
             </Stack>
           </Box>
