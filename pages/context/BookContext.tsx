@@ -1,6 +1,6 @@
 import React, { createContext, Dispatch, useReducer, useContext } from 'react';
 
-import { bookReducer, BookActions } from '../reducers';
+import { bookReducer, BookActions } from 'reducers';
 
 export type BookType = {
   title: string;

@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Box, Heading, Flex, Text, Button, Link as StyledLink } from '@chakra-ui/core';
 import Link from 'next/link';
 
-import { useBook } from '../context';
+import { useBook } from 'context';
 
 const MenuItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display='block'>
@@ -61,10 +61,10 @@ const Header = (props) => {
         flexGrow={1}
       >
         <MenuItems>
-          <Link href='/'>Home</Link>
+          <Link href='/'><a title="Home">Home</a></Link>
         </MenuItems>
-        <MenuItems>Examples</MenuItems>
-        <MenuItems>Blog</MenuItems>
+        <MenuItems><a title="Examples">Examples</a></MenuItems>
+        <MenuItems><a title="Blog">Blog</a></MenuItems>
       </Box>
 
       <Box display={{ sm: show ? 'block' : 'none', md: 'block' }} mt={{ base: 4, md: 0 }}>
