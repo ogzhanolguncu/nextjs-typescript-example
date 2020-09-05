@@ -114,6 +114,14 @@
 .logo {
   height: 1em;
 }
+.book:hover {
+  cursor: pointer;
+  background-color: #b493ff;
+}
+.book:hover > h2,
+.book:hover > p {
+  text-decoration: underline;
+}
 
 @media (max-width: 600px) {
   .grid {
