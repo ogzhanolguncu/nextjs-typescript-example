@@ -1,11 +1,21 @@
-import { useEffect } from 'react';
-import { Flex, Text, Box, Heading, Stack, Button } from '@chakra-ui/core';
-import Head from 'next/head';
-import Link from 'next/link';
+import { useEffect } from "react";
+import {
+  Flex,
+  Text,
+  Box,
+  Heading,
+  Stack,
+  Button,
+  PseudoBox,
+  Icon,
+} from "@chakra-ui/core";
+import Head from "next/head";
+import Link from "next/link";
 
-import { useBook } from 'context';
+import { useBook } from "context";
+import { Types } from "reducers";
 
-import styles from '../styles/Home.module.css';
+import styles from "../styles/Home.module.css";
 
 type HomeProps = {
   bookList: BookProps[] | undefined;
@@ -13,50 +23,58 @@ type HomeProps = {
 
 const Feature = ({ title, desc, ...rest }) => {
   return (
-    <Box p={5} shadow='md' borderWidth='1px' {...rest}>
-      <Heading fontSize='xl'>{title}</Heading>
+    <Box className={styles.book} p={5} shadow="md" borderWidth="1px" {...rest}>
+      <Heading fontSize="xl">{title}</Heading>
       <Text mt={4}>{desc}</Text>
     </Box>
   );
-}
+};
 
 export default function Home({ bookList = [] }: HomeProps) {
-  const {
-    dispatch = () => { },
-    state: { books = [] } = {},
-  } = useBook();
+  const { dispatch = () => {}, state: { books = [] } = {} } = useBook();
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
+
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const bookTitle = e.currentTarget.children[0].textContent;
+    dispatch({ type: Types.Delete, payload: { title: bookTitle } });
+  };
 
   return (
     <div className={styles.container}>
       <Head>
         <title>Book List</title>
-        <link rel='icon' href='/favicon.ico' />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Flex alignItems='center' justifyContent='center' d='flex' mt={10}>
+      <Flex alignItems="center" justifyContent="center" d="flex" mt={10}>
         <Box
-          fontSize={['sm', 'md', 'lg', 'xl']}
+          fontSize={["sm", "md", "lg", "xl"]}
           minW={[
-            '100%', // base
-            '50%', // 480px upwards
-            '25%', // 768px upwards
-            '15%', // 992px upwards
+            "100%", // base
+            "50%", // 480px upwards
+            "25%", // 768px upwards
+            "15%", // 992px upwards
           ]}
         >
-          <Box d='flex' flexDirection='row' justifyContent='space-between'>
-            <Heading color='purple.500' mb={5} size='xl'>
+          <Box d="flex" flexDirection="row" justifyContent="space-between">
+            <Heading color="purple.500" mb={5} size="xl">
               Famous Books
             </Heading>
-            <Button variantColor='purple' variant='outline' ml={20}>
-              <Link href='/book/create'><a title="NEW">NEW</a></Link>
+            <Button variantColor="purple" variant="outline" ml={20}>
+              <Link href="/book/create">
+                <a title="NEW">NEW</a>
+              </Link>
             </Button>
           </Box>
-          <Box rounded='md' bg='purple.500' color='white' px={15} py={15}>
+          <Box rounded="md" bg="purple.500" color="white" px={15} py={15}>
             <Stack spacing={8}>
               {books.map((item, index) => (
-                <Feature key={index} title={item.title} desc={item.author} />
+                <Feature
+                  key={index}
+                  title={item.title}
+                  desc={item.author}
+                  onClick={handleDelete}
+                />
               ))}
             </Stack>
           </Box>
@@ -74,16 +92,16 @@ type BookProps = {
 Home.getInitialProps = () => {
   const bookList: BookProps[] = [
     {
-      title: '1984',
-      author: 'George Orwell',
+      title: "1984",
+      author: "George Orwell",
     },
     {
-      title: 'Harry Potter and the Philosopher’s Stone',
-      author: 'J.K. Rowling',
+      title: "Harry Potter and the Philosopher’s Stone",
+      author: "J.K. Rowling",
     },
     {
-      title: ' The Lord of the Rings',
-      author: 'J.R.R. Tolkien',
+      title: " The Lord of the Rings",
+      author: "J.R.R. Tolkien",
     },
   ];
   return { bookList };
